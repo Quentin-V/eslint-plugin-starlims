@@ -23,6 +23,7 @@ module.exports = {
         lims: true,
         form: true,
         Shell: true,
+        Starlims: true,
       }
     }
   }
