@@ -1,0 +1,11 @@
+{
+  "name": "eslint-plugin-starlims",
+  "version": "1.0.0",
+  "description": "Eslint plugin to parse and lint starlims form code successfully",
+  "main": "starlims.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Quentin Vauthier",
+  "license": "ISC"
+}
