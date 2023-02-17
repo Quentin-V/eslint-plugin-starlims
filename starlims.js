@@ -9,10 +9,43 @@ module.exports = {
       },
       
       //Define the function that postprocesses the code
-      postprocess: function(problem, filename) {
-        if(problem[0].length === 0) return problem[0];
-        if(problem[0][0].message && problem[0][0].message === 'Parsing error: Unexpected token #include') problem[0][0].message = 'Your include statement seems to be wrong, please use `#include "Category.ScriptName"`'
-        return problem[0];
+      postprocess: function(fileMessages, filename) {
+        const starlimsFunctionSuffixes = ['OnLoad', 'OnRowChange', 'OnSelectionChanged'];
+        const starlimsFunctionsPrefixes = ['cs'];
+        const ignoredMessages = [];
+        fileMessages.forEach((messages) => {
+          // If there is no messages for this file, return
+          if(messages.length === 0) return;
+          // If there is messages, loop through them
+          messages.forEach(m => {
+            if(m.message === 'Parsing error: Unexpected token #include')
+              m.message = 'Your include statement seems to be wrong, please use `#include "Category.ScriptName"`'
+
+            // Ignore the no-undef error for Starlims functions having the defined prefixes and suffixes
+            if(m.ruleId === 'no-undef') {
+              // Check if the message is an undefined prefixed Starlims function
+              const hasPrefix = starlimsFunctionsPrefixes.some(prefix => {
+                const regex = new RegExp(`^'${prefix}[A-z0-9]*' is not defined.$`);
+                return regex.test(m.message);
+              })
+              // Ignore the message if it has a Starlims function prefix
+              if(hasPrefix) ignoredMessages.push(m);
+            }
+
+            if(m.ruleId === 'no-unused-vars') {
+              // Check if the message is an undefined suffixed Starlims function
+              const hasSuffix = starlimsFunctionSuffixes.some(suffix => {
+                const regex = new RegExp(`^'[A-z0-9]+_${suffix}' is defined but never used.$`);
+                return regex.test(m.message);
+              })
+              // Ignore the message if it has a Starlims function suffix
+              if(hasSuffix) ignoredMessages.push(m);
+            }
+          });
+        });
+        
+        // Return the messages, filtering out the ignored messages
+        return fileMessages.flat().filter(m => !ignoredMessages.includes(m));
       }
     }
   },
@@ -24,6 +57,8 @@ module.exports = {
         form: true,
         Shell: true,
         Starlims: true,
+        System: true,
+        Menu: true,
       }
     }
   }
