@@ -18,10 +18,6 @@ module.exports = {
         'starlims/env': true
     },
     "extends": "eslint:recommended",
-    "overrides": [{
-        "files": ["*.js"],
-        "processor": "starlims/js"
-    }],
     "parserOptions": {
         "ecmaVersion": "latest"
     },
@@ -42,7 +38,7 @@ npx eslint .
 You can also install the ESLint extension for Visual Studio Code to get real-time linting. [ESLint extension for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 
 ## List of customizations
-- Do not create parsing errors for #import statements
+- Do not create parsing errors for #include statements
 - Allow usage of Starlims global variables such as:
     - 'form'
     - 'lims'

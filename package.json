@@ -1,5 +1,5 @@
 {
-  "name": "eslint-plugin-starlims",
+  "name": "@quintaaa/eslint-plugin-starlims",
   "version": "1.0.0",
   "description": "Eslint plugin to parse and lint starlims form code successfully",
   "main": "starlims.js",
@@ -7,5 +7,18 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Quentin Vauthier",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Quentin-V/eslint-plugin-starlims.git"
+  },
+  "keywords": [
+    "starlims",
+    "eslint",
+    "plugin"
+  ],
+  "bugs": {
+    "url": "https://github.com/Quentin-V/eslint-plugin-starlims/issues"
+  },
+  "homepage": "https://github.com/Quentin-V/eslint-plugin-starlims#readme"
 }
