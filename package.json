@@ -1,5 +1,6 @@
 {
   "name": "@quintaaa/eslint-plugin-starlims",
+  "type": "commonjs",
   "version": "1.0.0",
   "description": "Eslint plugin to parse and lint starlims form code successfully",
   "main": "starlims.js",
