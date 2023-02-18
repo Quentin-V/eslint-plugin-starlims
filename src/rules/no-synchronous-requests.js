@@ -25,7 +25,6 @@ module.exports = {
                             asyncFunction: syncToAsyncFunction[node.callee.property.name],
                         },
                         fix: function(fixer) {
-                            return fixer.replaceText(node, (node?.parent.type === 'AwaitExpression' ? '' : 'await ') + syncToAsyncFunction[node.callee.property.name] + '(' + node.arguments.map(arg => context.getSourceCode().getText(arg)).join(', ') + ')');
                             const fixes = []
                             if(!isInAsyncFunction(node)) fixes.push(fixer.insertTextBefore(getParentFunction(node), 'async '));
                             fixes.push(fixer.replaceText(node, (node?.parent.type === 'AwaitExpression' ? '' : 'await ') + syncToAsyncFunction[node.callee.property.name] + '(' + node.arguments.map(arg => context.getSourceCode().getText(arg)).join(', ') + ')'));
