@@ -10,7 +10,9 @@ module.exports = {
     //Define the function that postprocesses the code
     postprocess: function (fileMessages, filename) {
       const starlimsFunctionSuffixes = [
+        "OnInit",
         "OnLoad",
+        "OnClose",
         "OnRowChange",
         "OnSelectionChanged",
         "OnClicked",

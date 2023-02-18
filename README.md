@@ -10,18 +10,20 @@
 - Add the following content to the file:
 ```js
 module.exports = {
-    "plugins": ['starlims'],
+    "plugins": ['@quintaaa/starlims'],
     "env": {
         "browser": true,
         "commonjs": true,
         "es2021": true,
-        'starlims/env': true
+        '@quintaaa/starlims/forms': true
     },
     "extends": "eslint:recommended",
     "parserOptions": {
         "ecmaVersion": "latest"
     },
     "rules": {
+        // Insert all the rules you want to use here
+        // e.g. "@quintaaa/starlims/no-synchronous-requests": "warn"
     }
 }
 
@@ -39,11 +41,18 @@ You can also install the ESLint extension for Visual Studio Code to get real-tim
 
 ## List of customizations
 - Do not create parsing errors for #include statements
+- Do not report undefined variables for client script functions starting with `cs` (e.g. `csLoadCrossTab`)
+- Do not report defined but unused variables for event handlers functions (e.g. `Form1_OnLoad`, `Form1_OnClose`, `dataGrid1_OnRowChange`, `btnOk_OnClick`)
 - Allow usage of Starlims global variables such as:
-    - 'form'
-    - 'lims'
-    - 'Shell'
-    - 'Starlims'
+    - form
+    - lims
+    - Shell
+    - Starlims
+    - System
+    - Menu
+    - Dialogs
+- Rules
+    - @quintaaa/starlims/no-synchronous-requests --> Reports the usage of functions that are blocking and should be avoided (e.g. `lims.CallServer`, `lims.GetDataSet`)
 
 ## Contributing
 Any contributions are welcome. Please follow the steps below to contribute:
