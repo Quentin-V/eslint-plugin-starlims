@@ -1,8 +1,6 @@
 const { expect } = require("chai");
 const {
-  ".js": jsProcessor,
-  starlimsFunctionSuffixes,
-  starlimsFunctionsPrefixes,
+  ".js": jsProcessor
 } = require("../src/processors");
 
 describe("processor", () => {
