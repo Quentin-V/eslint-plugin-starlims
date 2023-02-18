@@ -26,8 +26,12 @@ module.exports = {
                         },
                         fix: function(fixer) {
                             const fixes = []
-                            if(!isInAsyncFunction(node)) fixes.push(fixer.insertTextBefore(getParentFunction(node), 'async '));
-                            fixes.push(fixer.replaceText(node, (node?.parent.type === 'AwaitExpression' ? '' : 'await ') + syncToAsyncFunction[node.callee.property.name] + '(' + node.arguments.map(arg => context.getSourceCode().getText(arg)).join(', ') + ')'));
+                            fixes.push(fixer.replaceText(node.callee, syncToAsyncFunction[node.callee.property.name]));
+                            const parentFunction = getParentFunction(node)
+                            if(parentFunction){
+                                if(!parentFunction.async) fixes.push(fixer.insertTextBefore(parentFunction, 'async '));
+                                fixes.push(fixer.insertTextBefore(node, (node?.parent.type === 'AwaitExpression' ? '' : 'await ')));
+                            }
                             return fixes;
                         }
                     });
@@ -35,12 +39,6 @@ module.exports = {
             }
         }
     }
-};
-
-const isInAsyncFunction = (node) => {
-    if (node.type === 'FunctionDeclaration' || node.type === 'FunctionExpression') return node.async;
-    if (node.parent) return isInAsyncFunction(node.parent);
-    return false;
 };
 
 const getParentFunction = (node) => {

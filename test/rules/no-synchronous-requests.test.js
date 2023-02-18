@@ -16,52 +16,72 @@ expect(() => {
         ],
         invalid: [
             {
-                code: 'async function test() { lims.CallServer() }',
+                name: 'In async function',
+                code: `
+                    async function testCS() { lims.CallServer(); }
+                    async function testGDS() { lims.GetDataSet(); }
+                    async function testGD() { lims.GetData(); }
+                `,
+                errors: [{
+                    message: 'Avoid synchronous requests (CallServer), consider using async/await with an async function (lims.CallServerAsync)',
+                    type: 'CallExpression'
+                },
+                {
+                    message: 'Avoid synchronous requests (GetDataSet), consider using async/await with an async function (lims.GetDataSetAsync)',
+                    type: 'CallExpression'
+                },
+                {
+                    message: 'Avoid synchronous requests (GetData), consider using async/await with an async function (lims.GetDataAsync)',
+                    type: 'CallExpression'
+                }],
+                output: `
+                    async function testCS() { await lims.CallServerAsync(); }
+                    async function testGDS() { await lims.GetDataSetAsync(); }
+                    async function testGD() { await lims.GetDataAsync(); }
+                `
+            },
+            {
+                name: 'In synchronous function',
+                code: `
+                    function testCA() { lims.CallServer(); }
+                    function testGDS() { lims.GetDataSet(); }
+                    function testGD() { lims.GetData(); }
+                `,
+                errors: [{
+                    message: 'Avoid synchronous requests (CallServer), consider using async/await with an async function (lims.CallServerAsync)',
+                    type: 'CallExpression'
+                },
+                {
+                    message: 'Avoid synchronous requests (GetDataSet), consider using async/await with an async function (lims.GetDataSetAsync)',
+                    type: 'CallExpression'
+                },
+                {
+                    message: 'Avoid synchronous requests (GetData), consider using async/await with an async function (lims.GetDataAsync)',
+                    type: 'CallExpression'
+                }],
+                output: `
+                    async function testCA() { await lims.CallServerAsync(); }
+                    async function testGDS() { await lims.GetDataSetAsync(); }
+                    async function testGD() { await lims.GetDataAsync(); }
+                `
+            },
+            {
+                name: 'Outside function',
+                code: 'lims.CallServer();',
                 errors: [{
                     message: 'Avoid synchronous requests (CallServer), consider using async/await with an async function (lims.CallServerAsync)',
                     type: 'CallExpression'
                 }],
-                output: 'async function test() { await lims.CallServerAsync() }'
+                output: 'lims.CallServerAsync();'
             },
             {
-                code: 'async function test() { lims.GetDataSet(); }',
-                errors: [{
-                    message: 'Avoid synchronous requests (GetDataSet), consider using async/await with an async function (lims.GetDataSetAsync)',
-                    type: 'CallExpression'
-                }],
-                output: 'async function test() { await lims.GetDataSetAsync(); }'
-            },
-            {
-                code: 'async function test() { lims.GetData(); }',
-                errors: [{
-                    message: 'Avoid synchronous requests (GetData), consider using async/await with an async function (lims.GetDataAsync)',
-                    type: 'CallExpression'
-                }],
-                output: 'async function test() { await lims.GetDataAsync(); }'
-            },
-            {
-                code: 'function test() { lims.CallServer(); }',
+                name: 'In async function, already with await',
+                code: 'async function test() { await lims.CallServer(); }',
                 errors: [{
                     message: 'Avoid synchronous requests (CallServer), consider using async/await with an async function (lims.CallServerAsync)',
                     type: 'CallExpression'
                 }],
                 output: 'async function test() { await lims.CallServerAsync(); }'
-            },
-            {
-                code: 'function test() { lims.GetDataSet(); }',
-                errors: [{
-                    message: 'Avoid synchronous requests (GetDataSet), consider using async/await with an async function (lims.GetDataSetAsync)',
-                    type: 'CallExpression'
-                }],
-                output: 'async function test() { await lims.GetDataSetAsync(); }'
-            },
-            {
-                code: 'function test() { lims.GetData(); }',
-                errors: [{
-                    message: 'Avoid synchronous requests (GetData), consider using async/await with an async function (lims.GetDataAsync)',
-                    type: 'CallExpression'
-                }],
-                output: 'async function test() { await lims.GetDataAsync(); }'
             }
         ]
     });
