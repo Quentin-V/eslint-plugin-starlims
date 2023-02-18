@@ -4,7 +4,7 @@ const starlimsFunctionSuffixes = [
   "OnClose",
   "OnRowChange",
   "OnSelectionChanged",
-  "OnClicked",
+  "OnClick",
 ];
 const starlimsFunctionsPrefixes = ["cs"];
 
