@@ -1,23 +1,24 @@
+const starlimsFunctionSuffixes = [
+  "OnInit",
+  "OnLoad",
+  "OnClose",
+  "OnRowChange",
+  "OnSelectionChanged",
+  "OnClicked",
+];
+const starlimsFunctionsPrefixes = ["cs"];
+
 module.exports = {
   ".js": {
     // Define the function that preprocesses the code
-    preprocess: function (text, filename) {
+    preprocess: function (text) {
       // Return the code with the #include statements changed to comments
       text = text.replace(/^(#include\s+.*)/gm, "//$1");
       return [text];
     },
 
     //Define the function that postprocesses the code
-    postprocess: function (fileMessages, filename) {
-      const starlimsFunctionSuffixes = [
-        "OnInit",
-        "OnLoad",
-        "OnClose",
-        "OnRowChange",
-        "OnSelectionChanged",
-        "OnClicked",
-      ];
-      const starlimsFunctionsPrefixes = ["cs"];
+    postprocess: function (fileMessages) {
       const ignoredMessages = [];
       fileMessages.forEach((messages) => {
         // If there is no messages for this file, return
@@ -55,4 +56,6 @@ module.exports = {
       return fileMessages.flat().filter((m) => !ignoredMessages.includes(m));
     },
   },
+  starlimsFunctionsPrefixes,
+  starlimsFunctionSuffixes
 };
