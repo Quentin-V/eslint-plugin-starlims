@@ -2,8 +2,8 @@ module.exports = {
   ".js": {
     // Define the function that preprocesses the code
     preprocess: function (text, filename) {
-      // Return the code with the #include statements removed
-      text = text.replace(/#include\s+["'].*["']/g, "");
+      // Return the code with the #include statements changed to comments
+      text = text.replace(/^(#include\s+.*)/gm, "//$1");
       return [text];
     },
 
@@ -22,10 +22,6 @@ module.exports = {
         if (messages.length === 0) return;
         // If there is messages, loop through them
         messages.forEach((m) => {
-          if (m.message === "Parsing error: Unexpected token #include")
-            m.message =
-              'Your include statement seems to be wrong, please use `#include "Category.ScriptName"`';
-
           // Ignore the no-undef error for Starlims functions having the defined prefixes and suffixes
           if (m.ruleId === "no-undef") {
             // Check if the message is an undefined prefixed Starlims function
