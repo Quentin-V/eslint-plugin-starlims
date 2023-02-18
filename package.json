@@ -16,7 +16,7 @@
   "keywords": [
     "starlims",
     "eslint",
-    "plugin"
+    "eslintplugin"
   ],
   "bugs": {
     "url": "https://github.com/Quentin-V/eslint-plugin-starlims/issues"
