@@ -10,23 +10,18 @@
 - Add the following content to the file:
 ```js
 module.exports = {
-    "plugins": ['@quintaaa/starlims'],
-    "env": {
-        "browser": true,
-        "commonjs": true,
-        "es2021": true,
-        '@quintaaa/starlims/forms': true
-    },
-    "extends": "eslint:recommended",
-    "parserOptions": {
-        "ecmaVersion": "latest"
-    },
+    "plugins": [
+        // Insert all the plugins you want to use here
+        '@quintaaa/starlims'
+    ],
+    "extends": [
+        // Insert this to use the default configuration of the plugin
+        "plugin:@quintaaa/starlims/default"
+    ],
     "rules": {
-        // Insert all the rules you want to use here
-        // e.g. "@quintaaa/starlims/no-synchronous-requests": "warn"
+        // Insert all the rules you want to use here (optional)
     }
-}
-
+};
 ```
 You can customize your ESLint configuration as you wish. For more information, please refer to the [ESLint documentation](https://eslint.org/docs/user-guide/configuring).
 
@@ -66,5 +61,7 @@ If you have any questions or suggestions, please contact me at quentin.vauthier@
 
 ### Future plans
 - Add warnings rules for functions that are not recommended to use
+- Add specific warnings for code that might create bugs
+- Add warnings for code that create performance issues
 - Add more rules for Starlims specific code
 - Add more global variables
