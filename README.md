@@ -40,7 +40,7 @@ npx eslint .
 You can also install the ESLint extension for Visual Studio Code to get real-time linting. [ESLint extension for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 
 ## List of customizations
-- Do not create parsing errors for #include statements
+- Do not create parsing errors for `#include` statements
 - Do not report undefined variables for client script functions starting with `cs` (e.g. `csLoadCrossTab`)
 - Do not report defined but unused variables for event handlers functions (e.g. `Form1_OnLoad`, `Form1_OnClose`, `dataGrid1_OnRowChange`, `btnOk_OnClick`)
 - Allow usage of Starlims global variables such as:
@@ -53,6 +53,7 @@ You can also install the ESLint extension for Visual Studio Code to get real-tim
     - Dialogs
 - Rules
     - @quintaaa/starlims/no-synchronous-requests --> Reports the usage of functions that are blocking and should be avoided (e.g. `lims.CallServer`, `lims.GetDataSet`)
+    - @quintaaa/starlims/check-server-functions --> Checks the syntax of server functions such as `lims.CallServer` and `lims.GetDataSet` etc. Also check the syntax of `#include` statements
 
 ## Contributing
 Any contributions are welcome. Please follow the steps below to contribute:
