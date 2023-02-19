@@ -1,23 +1,29 @@
 const starlimsFunctionSuffixes = [
-  "OnInit",
-  "OnLoad",
-  "OnShow",
-  "OnClose",
-  "OnRowChange",
-  "OnSelectionChanged",
-  "OnClick",
-  "OnContextMenuPopup",
-  "OnCheckedChanged"
+  'OnInit',
+  'OnLoad',
+  'OnShow',
+  'OnClose',
+  'OnRowChange',
+  'OnSelectionChanged',
+  'OnClick',
+  'OnContextMenuPopup',
+  'OnCheckedChanged',
+  'OnTabChanged',
 ];
-const starlimsFunctionsPrefixes = ["cs", "ESIG_", "Audit_"];
+const starlimsFunctionsPrefixes = ['cs', 'ESIG_', 'Audit_'];
+
+const includeRegex = /(#include\s+.*)$/gm;
+
+let offset = 0;
 
 module.exports = {
-  ".js": {
+  '.js': {
+    supportsAutofix: true,
     // Define the function that preprocesses the code
     preprocess: function (text) {
       // Return the code with the #include statements changed to comments
-      text = text.replace(/^(#include\s+.*)/gm, "//$1");
-      return [text];
+      offset = text.match(includeRegex).length * 2;
+      return [text.replaceAll(includeRegex, '//$1')];
     },
 
     //Define the function that postprocesses the code
@@ -28,8 +34,9 @@ module.exports = {
         if (messages.length === 0) return;
         // If there is messages, loop through them
         messages.forEach((m) => {
+          if(m.fix) m.fix.range = m.fix.range.map(r => r - offset)
           // Ignore the no-undef error for Starlims functions having the defined prefixes and suffixes
-          if (m.ruleId === "no-undef") {
+          if (m.ruleId === 'no-undef') {
             // Check if the message is an undefined prefixed Starlims function
             const hasPrefix = starlimsFunctionsPrefixes.some((prefix) => {
               const regex = new RegExp(
@@ -41,7 +48,7 @@ module.exports = {
             if (hasPrefix) ignoredMessages.push(m);
           }
 
-          if (m.ruleId === "no-unused-vars") {
+          if (m.ruleId === 'no-unused-vars') {
             // Check if the message is an undefined suffixed Starlims function
             const hasSuffix = starlimsFunctionSuffixes.some((suffix) => {
               const regex = new RegExp(
