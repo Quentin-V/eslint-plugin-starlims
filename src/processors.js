@@ -1,12 +1,15 @@
 const starlimsFunctionSuffixes = [
   "OnInit",
   "OnLoad",
+  "OnShow",
   "OnClose",
   "OnRowChange",
   "OnSelectionChanged",
   "OnClick",
+  "OnContextMenuPopup",
+  "OnCheckedChanged"
 ];
-const starlimsFunctionsPrefixes = ["cs"];
+const starlimsFunctionsPrefixes = ["cs", "ESIG_", "Audit_"];
 
 module.exports = {
   ".js": {

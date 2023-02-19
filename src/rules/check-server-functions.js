@@ -1,4 +1,4 @@
-const sourceRegex = /[A-z]+\.[A-z]+/;
+const sourceRegex = /[A-Za-z_]+\.[A-Za-z_]+/;
 module.exports = {
     meta: {
         type: 'problem',
@@ -11,7 +11,7 @@ module.exports = {
         const sourceCode = context.getSourceCode();
         const includeComment = /^#include\s+/;
         const includeEndingWithSemicolon = /^#include\s+.*;\s*$/;
-        const validIncludeComment = /^#include\s+['"][A-z]+\.[A-z]+['"]\s*$/;
+        const validIncludeComment = /^#include\s+['"][A-Za-z_]+\.[A-Za-z_]+['"]\s*$/;
         return {
             Program() {
                 for (const comment of sourceCode.getAllComments()) {

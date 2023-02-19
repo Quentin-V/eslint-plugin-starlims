@@ -10,6 +10,8 @@ const { expect } = require("chai");
 expect(() => {
     ruleTester.run('check-server-functions source and params', rule, {
         valid: [
+            'alert("Nothing to see here")',
+            'console.log("Nothing to see here")',
             'lims.GetDataSource("Categ.Name")',
             'lims.GetDataSource("Categ.Name", [1, 2, 3])',
             'lims.CallServer("Categ.Name", [1, 2, 3], true)',
@@ -19,6 +21,7 @@ expect(() => {
             'const source = "Categ.Name"; const copySource = source; lims.CallServer(copySource)',
             'const source = "Categ.Name"; const copySource = source; lims.CallServer(copySource, [1, 2, 3])',
             'const source = "Categ.Name"; const copySource = source; lims.CallServer(copySource, [1, 2, 3], true)',
+            'lims.CallServer(notDefined, notDefined)'
         ],
         invalid: [
             {
@@ -213,6 +216,8 @@ expect(() => {
     ruleTester.run('check-server-functions cs include', rule, {
         // All include statements are commented because the processor will output them commented
         valid: [
+            '// not an include statement',
+            '//#include "Valid_Source.Under_Score"',
             '//#include "Categ.Name"',
             '//#include    "Categ.Name"',
             '//#include    "Categ.Name"    ',
@@ -233,7 +238,7 @@ expect(() => {
                     message: `Your include statement seems to be wrong, please remove the semicolon at the end`,
                     type: 'Line'
                 }]
-            }
+            },
         ]
     });
 }).to.not.throw();
