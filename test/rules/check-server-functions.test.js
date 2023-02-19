@@ -5,7 +5,7 @@ const ruleTester = new RuleTester({
         ecmaVersion: 2018,
     }
 });
-const { expect } = require("chai");
+const { expect } = require('chai');
 
 expect(() => {
     ruleTester.run('check-server-functions source and params', rule, {
@@ -28,7 +28,7 @@ expect(() => {
                 name: 'No parameters',
                 code: 'lims.GetDataSource()',
                 errors: [{
-                    message: `This function must have at least the source argument (e.g. 'Category.Name')`,
+                    message: 'This function must have at least the source argument (e.g. \'Category.Name\')',
                     type: 'CallExpression'
                 }]
             },
@@ -36,7 +36,7 @@ expect(() => {
                 name: 'Invalid source',
                 code: 'lims.GetDataSource("Invalid")',
                 errors: [{
-                    message: `The first argument of this function must be a source string (e.g. 'Category.Name')`,
+                    message: 'The first argument of this function must be a source string (e.g. \'Category.Name\')',
                     type: 'Literal'
                 }]
             },
@@ -44,7 +44,7 @@ expect(() => {
                 name: 'Invalid `parameters` parameter',
                 code: 'lims.GetDataSource("Categ.Name", "Invalid")',
                 errors: [{
-                    message: `Parameters must be an array`,
+                    message: 'Parameters must be an array',
                     type: 'Literal'
                 }]
             },
@@ -53,11 +53,11 @@ expect(() => {
                 code: 'lims.GetDataSource("Invalid", "Invalid")',
                 errors: [
                     {
-                        message: `The first argument of this function must be a source string (e.g. 'Category.Name')`,
+                        message: 'The first argument of this function must be a source string (e.g. \'Category.Name\')',
                         type: 'Literal'
                     },
                     {
-                        message: `Parameters must be an array`,
+                        message: 'Parameters must be an array',
                         type: 'Literal'
                     }
                 ]
@@ -67,11 +67,11 @@ expect(() => {
                 code: 'const source = "Invalid"; lims.GetDataSource(source)',
                 errors: [
                     {
-                        message: `This variable used as a source string must always be a valid source string (e.g. 'Category.Name')`,
+                        message: 'This variable used as a source string must always be a valid source string (e.g. \'Category.Name\')',
                         type: 'Literal'
                     },
                     {
-                        message: `This variable must be a valid source string (e.g. 'Category.Name'), please check the errors on this variable assignments`,
+                        message: 'This variable must be a valid source string (e.g. \'Category.Name\'), please check the errors on this variable assignments',
                         type: 'Identifier'
                     }
                 ]
@@ -81,11 +81,11 @@ expect(() => {
                 code: 'const source = "Invalid"; lims.GetDataSource(source, [1, 2, 3])',
                 errors: [
                     {
-                        message: `This variable used as a source string must always be a valid source string (e.g. 'Category.Name')`,
+                        message: 'This variable used as a source string must always be a valid source string (e.g. \'Category.Name\')',
                         type: 'Literal'
                     },
                     {
-                        message: `This variable must be a valid source string (e.g. 'Category.Name'), please check the errors on this variable assignments`,
+                        message: 'This variable must be a valid source string (e.g. \'Category.Name\'), please check the errors on this variable assignments',
                         type: 'Identifier'
                     }
                 ]
@@ -95,11 +95,11 @@ expect(() => {
                 code: 'const source = "Invalid"; const params = [1, 2, 3]; lims.GetDataSource(source, params)',
                 errors: [
                     {
-                        message: `This variable used as a source string must always be a valid source string (e.g. 'Category.Name')`,
+                        message: 'This variable used as a source string must always be a valid source string (e.g. \'Category.Name\')',
                         type: 'Literal'
                     },
                     {
-                        message: `This variable must be a valid source string (e.g. 'Category.Name'), please check the errors on this variable assignments`,
+                        message: 'This variable must be a valid source string (e.g. \'Category.Name\'), please check the errors on this variable assignments',
                         type: 'Identifier'
                     }
                 ]
@@ -109,15 +109,15 @@ expect(() => {
                 code: 'let s = "Invalid"; s = "StillInvalid"; lims.GetDataSource(s)',
                 errors: [
                     {
-                        message: `This variable used as a source string must always be a valid source string (e.g. 'Category.Name')`,
+                        message: 'This variable used as a source string must always be a valid source string (e.g. \'Category.Name\')',
                         type: 'Literal'
                     },
                     {
-                        message: `This variable used as a source string must always be a valid source string (e.g. 'Category.Name')`,
+                        message: 'This variable used as a source string must always be a valid source string (e.g. \'Category.Name\')',
                         type: 'Literal'
                     },
                     {
-                        message: `This variable must be a valid source string (e.g. 'Category.Name'), please check the errors on this variable assignments`,
+                        message: 'This variable must be a valid source string (e.g. \'Category.Name\'), please check the errors on this variable assignments',
                         type: 'Identifier'
                     }
                 ]
@@ -127,11 +127,11 @@ expect(() => {
                 code: 'let s = "Categ.Name"; s = "Invalid"; lims.GetDataSource(s, [1, 2, 3])',
                 errors: [
                     {
-                        message: `This variable used as a source string must always be a valid source string (e.g. 'Category.Name')`,
+                        message: 'This variable used as a source string must always be a valid source string (e.g. \'Category.Name\')',
                         type: 'Literal'
                     },
                     {
-                        message: `This variable must be a valid source string (e.g. 'Category.Name'), please check the errors on this variable assignments`,
+                        message: 'This variable must be a valid source string (e.g. \'Category.Name\'), please check the errors on this variable assignments',
                         type: 'Identifier'
                     }
                 ]
@@ -141,11 +141,11 @@ expect(() => {
                 code: 'let s = "Invalid"; let ss = s; lims.GetDataSource(ss)',
                 errors: [
                     {
-                        message: `This variable used as a source string must always be a valid source string (e.g. 'Category.Name') - variable s is not always a valid source string`,
+                        message: 'This variable used as a source string must always be a valid source string (e.g. \'Category.Name\') - variable s is not always a valid source string',
                         type: 'Identifier'
                     },
                     {
-                        message: `This variable must be a valid source string (e.g. 'Category.Name'), please check the errors on this variable assignments`,
+                        message: 'This variable must be a valid source string (e.g. \'Category.Name\'), please check the errors on this variable assignments',
                         type: 'Identifier'
                     }
                 ]
@@ -155,11 +155,11 @@ expect(() => {
                 code: 'const params = "Invalid"; lims.GetDataSource("Categ.Name", params)',
                 errors: [
                     {
-                        message: `This variable used as a parameters array must be an array, please check the errors on this variable assignments`,
+                        message: 'This variable used as a parameters array must be an array, please check the errors on this variable assignments',
                         type: 'Literal'
                     },
                     {
-                        message: `The parameter argument must be an array, please check the errors on this variable assignments`,
+                        message: 'The parameter argument must be an array, please check the errors on this variable assignments',
                         type: 'Identifier'
                     }
                 ]
@@ -169,15 +169,15 @@ expect(() => {
                 code: 'let p = "Invalid"; p = "StillInvalid"; lims.GetDataSource("Categ.Name", p)',
                 errors: [
                     {
-                        message: `This variable used as a parameters array must be an array, please check the errors on this variable assignments`,
+                        message: 'This variable used as a parameters array must be an array, please check the errors on this variable assignments',
                         type: 'Literal'
                     },
                     {
-                        message: `This variable used as a parameters array must be an array, please check the errors on this variable assignments`,
+                        message: 'This variable used as a parameters array must be an array, please check the errors on this variable assignments',
                         type: 'Literal'
                     },
                     {
-                        message: `The parameter argument must be an array, please check the errors on this variable assignments`,
+                        message: 'The parameter argument must be an array, please check the errors on this variable assignments',
                         type: 'Identifier'
                     }
                 ]
@@ -187,11 +187,11 @@ expect(() => {
                 code: 'let p = [1, 2, 3]; p = "Invalid"; lims.GetDataSource("Categ.Name", p)',
                 errors: [
                     {
-                        message: `This variable used as a parameters array must be an array, please check the errors on this variable assignments`,
+                        message: 'This variable used as a parameters array must be an array, please check the errors on this variable assignments',
                         type: 'Literal'
                     },
                     {
-                        message: `The parameter argument must be an array, please check the errors on this variable assignments`,
+                        message: 'The parameter argument must be an array, please check the errors on this variable assignments',
                         type: 'Identifier'
                     }
                 ]
@@ -201,11 +201,11 @@ expect(() => {
                 code: 'let p = "Invalid"; let pp = p; lims.GetDataSource("Categ.Name", pp)',
                 errors: [
                     {
-                        message: `This variable used as a parameters array must be an array, please check the errors on this variable assignments - variable p is not always array`,
+                        message: 'This variable used as a parameters array must be an array, please check the errors on this variable assignments - variable p is not always array',
                         type: 'Identifier'
                     },
                     {
-                        message: `The parameter argument must be an array, please check the errors on this variable assignments`,
+                        message: 'The parameter argument must be an array, please check the errors on this variable assignments',
                         type: 'Identifier'
                     }
                 ]
@@ -221,6 +221,15 @@ expect(() => {
             '//#include "Categ.Name"',
             '//#include    "Categ.Name"',
             '//#include    "Categ.Name"    ',
+            `
+                //#include "Categ.Name"
+                //#include "Categ.Name"
+            `,
+            `
+                ////#include "Invalid"
+                //#include "Categ.Name"
+                //#include "Categ.Name"
+            `
         ],
         invalid: [
             {
@@ -235,10 +244,26 @@ expect(() => {
                 name: 'Semicolumn at the end of include',
                 code: '//#include "Categ.Name";',
                 errors: [{
-                    message: `Your include statement seems to be wrong, please remove the semicolon at the end`,
+                    message: 'Your include statement seems to be wrong, please remove the semicolon at the end',
                     type: 'Line'
                 }]
             },
+            {
+                name: '1 Valid include, 2 invalid includes',
+                code: `
+                    //#include "Categ.Name"
+                    //#include "Invalid"
+                    //#include "Invalid"
+                `,
+                errors: [{
+                    message: "Your include statement seems to be wrong, please use `#include 'Category.ScriptName'`",
+                    type: 'Line'
+                },
+                {
+                    message: "Your include statement seems to be wrong, please use `#include 'Category.ScriptName'`",
+                    type: 'Line'
+                }]
+            }            
         ]
     });
 }).to.not.throw();

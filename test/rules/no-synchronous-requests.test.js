@@ -5,7 +5,7 @@ const ruleTester = new RuleTester({
         ecmaVersion: 2018,
     }
 });
-const { expect } = require("chai");
+const { expect } = require('chai');
 
 expect(() => {
     ruleTester.run('no-synchronous-requests', rule, {

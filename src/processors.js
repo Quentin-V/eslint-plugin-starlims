@@ -22,7 +22,7 @@ module.exports = {
     // Define the function that preprocesses the code
     preprocess: function (text) {
       // Return the code with the #include statements changed to comments
-      offset = text.match(includeRegex).length * 2;
+      offset = text.match(includeRegex)?.length * 2;
       return [text.replaceAll(includeRegex, '//$1')];
     },
 
