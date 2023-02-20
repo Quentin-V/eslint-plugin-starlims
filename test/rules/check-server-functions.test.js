@@ -21,7 +21,8 @@ expect(() => {
             'const source = "Categ.Name"; const copySource = source; lims.CallServer(copySource)',
             'const source = "Categ.Name"; const copySource = source; lims.CallServer(copySource, [1, 2, 3])',
             'const source = "Categ.Name"; const copySource = source; lims.CallServer(copySource, [1, 2, 3], true)',
-            'lims.CallServer(notDefined, notDefined)'
+            'lims.CallServer(notDefined, notDefined)',
+            `const params = [{t: 'a', v: 1}, {t: 'b', v: 2}, {t: 'c', v: 3}].map(p => p.v); lims.CallServer("Categ.Name", params)`,
         ],
         invalid: [
             {
