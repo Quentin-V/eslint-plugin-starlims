@@ -46,9 +46,12 @@ You can also install the ESLint extension for Visual Studio Code to get real-tim
     - System
     - Menu
     - Dialogs
+    - VisibleIf
+    - Enable(d)If
 - Rules
     - @quintaaa/starlims/no-synchronous-requests --> Reports the usage of functions that are blocking and should be avoided (e.g. `lims.CallServer`, `lims.GetDataSet`)
     - @quintaaa/starlims/check-server-functions --> Checks the syntax of server functions such as `lims.CallServer` and `lims.GetDataSet` etc. Also check the syntax of `#include` statements
+    - @quintaaa/starlims/check-unconverted-functions --> Reports the usage of XFD functions that haven't been converted to html (e.g. `lims.AAdd`, `Convert.ToInt32`)
 
 ## Contributing
 Any contributions are welcome. Please follow the steps below to contribute:

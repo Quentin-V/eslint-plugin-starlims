@@ -4,6 +4,9 @@
   "version": "1.0.2",
   "description": "Eslint plugin to parse and lint starlims form code successfully",
   "main": "starlims.js",
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "scripts": {
     "test": "mocha",
     "coverage": "nyc mocha"

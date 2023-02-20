@@ -8,5 +8,8 @@ module.exports = {
     System: true,
     Menu: true,
     Dialogs: true,
+    VisibleIf: true,
+    EnableIf: true,
+    EnabledIf: true
   },
 };

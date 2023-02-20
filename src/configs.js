@@ -17,6 +17,7 @@ module.exports = {
             'dot-notation': 'warn',
             '@quintaaa/starlims/no-synchronous-requests': 'warn',
             '@quintaaa/starlims/check-server-functions': 'warn',
+            '@quintaaa/starlims/check-unconverted-functions': 'error',
         }
     },
 };
